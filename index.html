@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Present Simple — Тренажёр</title>
+<style>
+    :root {
+        --blue: #4a7cb8;
+        --blue-light: #d6e4f5;
+        --blue-pale: #eef4fb;
+        --blue-deep: #2c5282;
+        --navy: #1a2f4a;
+        --steel: #c2d3e6;
+        --cream: #ffffff;
+        --ink: #263445;
+        --muted: #6b7f96;
+        --success: #2f9e6e;
+        --success-bg: #e7f7ef;
+        --danger: #d64545;
+        --danger-bg: #fdecec;
+        --orange: #f5872c;
+        --orange-soft: #fef2e5;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+        font-family: 'Segoe UI', 'Trebuchet MS', Tahoma, Arial, sans-serif;
+        background-color: var(--blue-pale);
+        background-image:
+            radial-gradient(circle at 10% 15%, rgba(74, 124, 184, 0.12) 0%, transparent 50%),
+            radial-gradient(circle at 90% 85%, rgba(245, 135, 44, 0.08) 0%, transparent 50%),
+            radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.65) 0%, transparent 70%);
+        color: var(--ink);
+        line-height: 1.7;
+        margin: 0;
+        padding: 30px 15px;
+        min-height: 100vh;
+    }
+
+    .container { max-width: 820px; margin: 0 auto; }
+
+    header {
+        text-align: center;
+        margin-bottom: 40px;
+        background: linear-gradient(135deg, #1a2f4a 0%, #2c5282 48%, #4a7cb8 100%);
+        color: #fff;
+        padding: 35px 25px;
+        border-radius: 18px;
+        box-shadow: 0 12px 30px rgba(26, 47, 74, 0.28);
+        position: relative;
+        overflow: hidden;
+        border: 3px solid #2c5282;
+    }
+
+    header::before {
+        content: "⚡";
+        position: absolute;
+        font-size: 220px;
+        opacity: 0.07;
+        top: -70px;
+        right: -20px;
+        transform: rotate(-12deg);
+    }
+
+    header::after {
+        content: "";
+        position: absolute;
+        bottom: 0; left: 0; right: 0;
+        height: 5px;
+        background: repeating-linear-gradient(90deg, var(--orange) 0, var(--orange) 18px, transparent 18px, transparent 36px);
+    }
+
+    header h1 {
+        margin: 0;
+        font-size: 28px;
+        letter-spacing: 1.5px;
+        font-weight: 800;
+        position: relative;
+        z-index: 1;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    header .subtitle {
+        margin: 12px 0 0;
+        font-size: 15px;
+        color: #cfe0f5;
+        letter-spacing: 1px;
+        position: relative;
+        z-index: 1;
+    }
+
+    header .route {
+        margin-top: 15px;
+        font-size: 13px;
+        letter-spacing: 3px;
+        color: #ffb877;
+        font-weight: 700;
+        position: relative;
+        z-index: 1;
+    }
+
+    .task-card {
+        background: var(--cream);
+        border-radius: 16px;
+        padding: 26px;
+        margin-bottom: 30px;
+        box-shadow: 0 6px 18px rgba(44, 82, 130, 0.10);
+        border: 2px solid #dbe7f5;
+        border-left: 6px solid var(--blue);
+        position: relative;
+    }
+
+    .task-card::before {
+        content: attr(data-icon);
+        position: absolute;
+        top: 12px; right: 18px;
+        font-size: 26px;
+        opacity: 0.35;
+    }
+
+    .task-title {
+        font-size: 20px;
+        font-weight: 800;
+        margin-bottom: 8px;
+        color: var(--blue-deep);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        letter-spacing: 0.3px;
+        border-bottom: 3px solid #e2ecf7;
+        padding-bottom: 12px;
+    }
+
+    .task-instruction {
+        font-size: 15px;
+        color: #4a5d75;
+        margin: 15px 0 20px;
+        padding-left: 15px;
+        border-left: 4px solid var(--blue-light);
+    }
+
+    .task-instruction .form-note {
+        display: block;
+        margin-top: 8px;
+        font-size: 13px;
+        color: var(--blue-deep);
+        background: #f0f6fd;
+        padding: 8px 12px;
+        border-radius: 8px;
+        border-left: 4px solid var(--blue);
+    }
+
+    .question-block {
+        margin-bottom: 22px;
+        padding-bottom: 18px;
+        border-bottom: 2px dashed #e2ecf7;
+        position: relative;
+    }
+
+    .question-block:last-child { border-bottom: none; margin-bottom: 0; }
+
+    .question-text {
+        font-size: 16px;
+        margin-bottom: 12px;
+        font-weight: 600;
+        color: var(--ink);
+    }
+
+    .input-group {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    input[type="text"] {
+        flex: 1;
+        min-width: 180px;
+        padding: 12px 16px;
+        border: 2px solid #cfdff0;
+        border-radius: 10px;
+        font-size: 16px;
+        font-family: inherit;
+        background-color: #fafcff;
+        transition: all 0.25s;
+        outline: none;
+        color: var(--ink);
+    }
+
+    input[type="text"]:focus {
+        border-color: var(--blue);
+        box-shadow: 0 0 0 4px rgba(74, 124, 184, 0.15);
+        background-color: #fff;
+    }
+
+    input[type="text"].correct {
+        border-color: var(--success);
+        background-color: var(--success-bg);
+        color: var(--success);
+        font-weight: 700;
+    }
+
+    input[type="text"].incorrect {
+        border-color: var(--danger);
+        background-color: var(--danger-bg);
+    }
+
+    button.check-btn {
+        padding: 11px 24px;
+        background: linear-gradient(135deg, #4a7cb8 0%, #2c5282 100%);
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.25s;
+        font-weight: 700;
+        font-family: inherit;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        box-shadow: 0 4px 10px rgba(44, 82, 130, 0.22);
+    }
+
+    button.check-btn:hover:not(:disabled) {
+        background: linear-gradient(135deg, #5a8cc8 0%, #36618f 100%);
+        box-shadow: 0 6px 16px rgba(44, 82, 130, 0.35);
+        transform: translateY(-2px);
+    }
+
+    button.check-btn:disabled {
+        background: #d3dde8;
+        color: #93a3b5;
+        cursor: default;
+        box-shadow: none;
+        transform: none;
+    }
+
+    .hint-box {
+        margin-top: 12px;
+        padding: 12px 18px 12px 48px;
+        border-radius: 10px;
+        font-size: 14px;
+        display: none;
+        animation: fadeIn 0.35s ease;
+        position: relative;
+    }
+
+    .hint-box::before {
+        position: absolute;
+        left: 16px; top: 50%;
+        transform: translateY(-50%);
+        font-size: 18px;
+    }
+
+    .hint-box.hint-1 {
+        background-color: #f0f6fd;
+        color: #35597f;
+        border-left: 5px solid #7aa9d8;
+    }
+    .hint-box.hint-1::before { content: "💡"; }
+
+    .hint-box.hint-2 {
+        background-color: #e6f0fb;
+        color: #2c5282;
+        border-left: 5px solid #4a7cb8;
+    }
+    .hint-box.hint-2::before { content: "📘"; }
+
+    .hint-box.answer {
+        background-color: var(--success-bg);
+        color: var(--success);
+        border-left: 5px solid var(--success);
+        font-weight: 700;
+    }
+    .hint-box.answer::before { content: "✅"; }
+
+    .feedback {
+        margin-top: 10px;
+        font-weight: 700;
+        font-size: 14px;
+        display: none;
+        padding-left: 5px;
+    }
+
+    .feedback.correct { color: var(--success); display: block; }
+    .feedback.incorrect { color: var(--danger); display: block; }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-8px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .example {
+        background: #f0f6fd;
+        padding: 14px 18px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        font-size: 14px;
+        color: #35597f;
+        border: 2px dashed #b9d0ea;
+        position: relative;
+    }
+    .example::before { content: "📌 "; font-size: 14px; }
+    .example b { color: var(--blue-deep); }
+
+    .badge {
+        display: inline-block;
+        padding: 1px 9px;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 800;
+        margin-left: 6px;
+        vertical-align: middle;
+    }
+    .badge.plus  { background: var(--success-bg); color: var(--success); }
+    .badge.minus { background: var(--danger-bg); color: var(--danger); }
+    .badge.q     { background: #e6f0fb; color: var(--blue-deep); }
+    .badge.sa    { background: var(--orange-soft); color: #b8661a; }
+
+    .route-divider {
+        text-align: center;
+        margin: 10px 0 30px;
+        color: #b9d0ea;
+        font-size: 18px;
+        letter-spacing: 8px;
+        opacity: 0.9;
+    }
+
+    .results-card {
+        background: linear-gradient(135deg, #ffffff 0%, #f4f9ff 100%);
+        border: 3px solid #cfdff0;
+        border-radius: 18px;
+        padding: 35px 30px;
+        margin-bottom: 30px;
+        box-shadow: 0 10px 30px rgba(44, 82, 130, 0.14);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .results-card::before {
+        content: "🏆";
+        position: absolute;
+        top: 20px;
+        right: 25px;
+        font-size: 50px;
+        opacity: 0.12;
+    }
+
+    .results-title {
+        font-size: 24px;
+        color: var(--blue-deep);
+        margin: 0 0 10px;
+        font-weight: 800;
+        letter-spacing: 0.5px;
+    }
+
+    .results-subtitle {
+        font-size: 15px;
+        color: #7a8ea5;
+        margin-bottom: 25px;
+    }
+
+    .results-summary {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+        margin-bottom: 30px;
+    }
+
+    .summary-item {
+        flex: 1;
+        min-width: 140px;
+        background: #f0f6fd;
+        padding: 20px 15px;
+        border-radius: 12px;
+        border-left: 5px solid #7aa9d8;
+        text-align: center;
+    }
+
+    .summary-item.highlight {
+        background: linear-gradient(135deg, #e6f0fb 0%, #f4f9ff 100%);
+        border-left: 5px solid var(--blue);
+    }
+
+    .summary-item .number {
+        font-size: 34px;
+        font-weight: 800;
+        color: var(--blue-deep);
+        line-height: 1;
+    }
+
+    .summary-item .label {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #7a8ea5;
+        margin-top: 8px;
+        font-weight: 700;
+    }
+
+    .report-section { margin-top: 25px; }
+
+    .report-section h3 {
+        color: var(--blue-deep);
+        font-size: 17px;
+        margin-bottom: 12px;
+        border-bottom: 2px dotted #cfdff0;
+        padding-bottom: 8px;
+    }
+
+    .report-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .report-list li {
+        padding: 10px 16px;
+        margin-bottom: 8px;
+        border-radius: 10px;
+        font-size: 14px;
+        border-left: 4px solid #d3dde8;
+        background: #f8fbfe;
+    }
+
+    .report-list li.perfect {
+        border-left-color: var(--success);
+        background: var(--success-bg);
+    }
+
+    .report-list li.problem {
+        border-left-color: var(--danger);
+        background: var(--danger-bg);
+    }
+
+    .report-list li.hint-used {
+        border-left-color: var(--orange);
+        background: var(--orange-soft);
+    }
+
+    .report-list li b { color: var(--blue-deep); }
+
+    .report-empty {
+        color: #9aa9ba;
+        font-style: italic;
+        font-size: 14px;
+    }
+
+    .share-btn {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 14px 30px;
+        background: linear-gradient(135deg, #f5872c 0%, #e06a0d 100%);
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        font-size: 15px;
+        cursor: pointer;
+        transition: all 0.25s;
+        font-weight: 700;
+        font-family: inherit;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        box-shadow: 0 4px 12px rgba(245, 135, 44, 0.35);
+    }
+
+    .share-btn:hover {
+        background: linear-gradient(135deg, #ff9a44 0%, #ee7716 100%);
+        box-shadow: 0 6px 18px rgba(245, 135, 44, 0.5);
+        transform: translateY(-2px);
+    }
+
+    .copy-notice {
+        display: none;
+        margin-top: 12px;
+        padding: 12px 18px;
+        background: var(--success-bg);
+        color: var(--success);
+        border-left: 5px solid var(--success);
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+    @media (max-width: 600px) {
+        header h1 { font-size: 20px; }
+        header .route { font-size: 11px; letter-spacing: 2px; }
+        .task-card { padding: 20px; }
+        .task-title { font-size: 17px; }
+        .input-group { flex-direction: column; align-items: stretch; }
+        button.check-btn { width: 100%; }
+        .task-card::before { display: none; }
+        .results-card { padding: 20px; }
+        .summary-item .number { font-size: 24px; }
+        .summary-item { min-width: 100px; padding: 15px 10px; }
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>⚡ PRESENT SIMPLE ⚡</h1>
+        <p class="subtitle">Утверждение · Отрицание · Вопрос · Краткий ответ</p>
+        <div class="route">— DO ▸ DOES ▸ DON'T ▸ DOESN'T —</div>
+    </header>
+
+    <!-- ЗАДАНИЕ 1: Утверждение -->
+    <div class="task-card" data-task-name="Task 1: Present Simple — Affirmative" data-icon="⚡">
+        <div class="task-title">1️⃣ Task 1: Утверждение (+)</div>
+        <div class="task-instruction">
+            Составь утвердительное предложение в Present Simple.
+            <span class="form-note">💡 Помни: в 3-м лице единственного числа (he / she / it) к глаголу добавляется <b>-s</b> или <b>-es</b>. У have форма <b>has</b>.</span>
+        </div>
+        <div class="example">
+            <b>Example:</b> He / play / football → <b>He plays football.</b>
+        </div>
+
+        <div class="question-block" data-answer="I play football." data-topic="present simple: affirmative">
+            <div class="question-text">1. I / play / football → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: I → глагол без изменений.</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: I play football.</div>
+            <div class="hint-box answer">✅ Правильный ответ: I play football.</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="He likes pizza." data-topic="present simple: affirmative">
+            <div class="question-text">2. He / like / pizza → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: He → добавляем -s к глаголу.</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: He likes pizza.</div>
+            <div class="hint-box answer">✅ Правильный ответ: He likes pizza.</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="She watches TV." data-topic="present simple: affirmative">
+            <div class="question-text">3. She / watch / TV → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: She → глагол watch оканчивается на -ch, добавляем -es.</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: She watches TV.</div>
+            <div class="hint-box answer">✅ Правильный ответ: She watches TV.</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="We go to school." data-topic="present simple: affirmative">
+            <div class="question-text">4. We / go / to school → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: We → глагол без -s.</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: We go to school.</div>
+            <div class="hint-box answer">✅ Правильный ответ: We go to school.</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="They live in London." data-topic="present simple: affirmative">
+            <div class="question-text">5. They / live / in London → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: They → глагол без -s.</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: They live in London.</div>
+            <div class="hint-box answer">✅ Правильный ответ: They live in London.</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="My brother has a bike." data-topic="present simple: affirmative">
+            <div class="question-text">6. My brother / have / a bike → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: My brother = he → have меняется на has.</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: My brother has a bike.</div>
+            <div class="hint-box answer">✅ Правильный ответ: My brother has a bike.</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="He studies English." data-topic="present simple: affirmative">
+            <div class="question-text">7. He / study / English → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: study: y после согласной → -ies.</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: He studies English.</div>
+            <div class="hint-box answer">✅ Правильный ответ: He studies English.</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="She does her homework." data-topic="present simple: affirmative">
+            <div class="question-text">8. She / do / her homework → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: She → do меняется на does.</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: She does her homework.</div>
+            <div class="hint-box answer">✅ Правильный ответ: She does her homework.</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="It rains a lot." data-topic="present simple: affirmative">
+            <div class="question-text">9. It / rain / a lot → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: It → добавляем -s.</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: It rains a lot.</div>
+            <div class="hint-box answer">✅ Правильный ответ: It rains a lot.</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="Tom goes to the gym." data-topic="present simple: affirmative">
+            <div class="question-text">10. Tom / go / to the gym → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: Tom = he → go → goes.</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: Tom goes to the gym.</div>
+            <div class="hint-box answer">✅ Правильный ответ: Tom goes to the gym.</div>
+            <div class="feedback"></div>
+        </div>
+    </div>
+
+    <div class="route-divider">◆ ◆ ◆</div>
+
+    <!-- ЗАДАНИЕ 2: Отрицание -->
+    <div class="task-card" data-task-name="Task 2: Present Simple — Negative" data-icon="🚫">
+        <div class="task-title">2️⃣ Task 2: Отрицание (−)</div>
+        <div class="task-instruction">
+            Составь отрицательное предложение в Present Simple.
+            <span class="form-note">💡 I / you / we / they → <b>don't</b> + глагол. He / she / it → <b>doesn't</b> + глагол <b>без -s</b>.</span>
+        </div>
+        <div class="example">
+            <b>Example:</b> He / like / fish → <b>He doesn't like fish.</b>
+        </div>
+
+        <div class="question-block" data-answer="I don't like coffee.|I do not like coffee." data-topic="present simple: negative">
+            <div class="question-text">1. I / like / coffee → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: I → don't + глагол.</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: I don't like coffee.</div>
+            <div class="hint-box answer">✅ Правильный ответ: I don't like coffee.</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="She doesn't watch TV.|She does not watch TV." data-topic="present simple: negative">
+            <div class="question-text">2. She / watch / TV → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: She → doesn't + глагол без -es.</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: She doesn't watch TV.</div>
+            <div class="hint-box answer">✅ Правильный ответ: She doesn't watch TV.</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="They don't play chess.|They do not play chess." data-topic="present simple: negative">
+            <div class="question-text">3. They / play / chess → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: They → don't + глагол.</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: They don't play chess.</div>
+            <div class="hint-box answer">✅ Правильный ответ: They don't play chess.</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="He doesn't have a car.|He does not have a car." data-topic="present simple: negative">
+            <div class="question-text">4. He / have / a car → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: He → doesn't, а have остаётся в начальной форме.</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: He doesn't have a car.</div>
+            <div class="hint-box answer">✅ Правильный ответ: He doesn't have a car.</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="We don't go to the park.|We do not go to the park." data-topic="present simple: negative">
+            <div class="question-text">5. We / go / to the park → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: We → don't + глагол.</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: We don't go to the park.</div>
+            <div class="hint-box answer">✅ Правильный ответ: We don't go to the park.</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="My sister doesn't eat meat.|My sister does not eat meat." data-topic="present simple: negative">
+            <div class="question-text">6. My sister / eat / meat → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: My sister = she → doesn't + глагол.</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: My sister doesn't eat meat.</div>
+            <div class="hint-box answer">✅ Правильный ответ: My sister doesn't eat meat.</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="You don't speak French.|You do not speak French." data-topic="present simple: negative">
+            <div class="question-text">7. You / speak / French → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: You → don't + глагол.</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: You don't speak French.</div>
+            <div class="hint-box answer">✅ Правильный ответ: You don't speak French.</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="It doesn't work well.|It does not work well." data-topic="present simple: negative">
+            <div class="question-text">8. It / work / well → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: It → doesn't + глагол.</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: It doesn't work well.</div>
+            <div class="hint-box answer">✅ Правильный ответ: It doesn't work well.</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="Tom doesn't do yoga.|Tom does not do yoga." data-topic="present simple: negative">
+            <div class="question-text">9. Tom / do / yoga → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: Tom = he → doesn't, а do остаётся do.</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: Tom doesn't do yoga.</div>
+            <div class="hint-box answer">✅ Правильный ответ: Tom doesn't do yoga.</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="Anna doesn't study Spanish.|Anna does not study Spanish." data-topic="present simple: negative">
+            <div class="question-text">10. Anna / study / Spanish → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: Anna = she → doesn't, study остаётся study.</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: Anna doesn't study Spanish.</div>
+            <div class="hint-box answer">✅ Правильный ответ: Anna doesn't study Spanish.</div>
+            <div class="feedback"></div>
+        </div>
+    </div>
+
+    <div class="route-divider">◆ ◆ ◆</div>
+
+    <!-- ЗАДАНИЕ 3: Вопрос -->
+    <div class="task-card" data-task-name="Task 3: Present Simple — Questions" data-icon="❓">
+        <div class="task-title">3️⃣ Task 3: Вопрос (?)</div>
+        <div class="task-instruction">
+            Составь вопрос в Present Simple.
+            <span class="form-note">💡 I / you / we / they → <b>Do</b> ... ? He / she / it → <b>Does</b> ... ? После Do/Does глагол стоит <b>без -s</b>.</span>
+        </div>
+        <div class="example">
+            <b>Example:</b> he / play / tennis → <b>Does he play tennis?</b>
+        </div>
+
+        <div class="question-block" data-answer="Do you like pizza?" data-topic="present simple: questions">
+            <div class="question-text">1. you / like / pizza → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: you → Do ... ?</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: Do you like pizza?</div>
+            <div class="hint-box answer">✅ Правильный ответ: Do you like pizza?</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="Does he play football?" data-topic="present simple: questions">
+            <div class="question-text">2. he / play / football → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: he → Does ... ? Глагол без -s.</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: Does he play football?</div>
+            <div class="hint-box answer">✅ Правильный ответ: Does he play football?</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="Do they live in Paris?" data-topic="present simple: questions">
+            <div class="question-text">3. they / live / in Paris → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: they → Do ... ?</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: Do they live in Paris?</div>
+            <div class="hint-box answer">✅ Правильный ответ: Do they live in Paris?</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="Does she speak English?" data-topic="present simple: questions">
+            <div class="question-text">4. she / speak / English → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: she → Does ... ? speak без -s.</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: Does she speak English?</div>
+            <div class="hint-box answer">✅ Правильный ответ: Does she speak English?</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="Does your brother have a dog?" data-topic="present simple: questions">
+            <div class="question-text">5. your brother / have / a dog → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: your brother = he → Does ... ? have без изменений.</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: Does your brother have a dog?</div>
+            <div class="hint-box answer">✅ Правильный ответ: Does your brother have a dog?</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="Do you go to school by bus?" data-topic="present simple: questions">
+            <div class="question-text">6. you / go / to school by bus → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: you → Do ... ?</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: Do you go to school by bus?</div>
+            <div class="hint-box answer">✅ Правильный ответ: Do you go to school by bus?</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="Does Anna like ice cream?" data-topic="present simple: questions">
+            <div class="question-text">7. Anna / like / ice cream → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: Anna = she → Does ... ?</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: Does Anna like ice cream?</div>
+            <div class="hint-box answer">✅ Правильный ответ: Does Anna like ice cream?</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="Do we need a map?" data-topic="present simple: questions">
+            <div class="question-text">8. we / need / a map → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: we → Do ... ?</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: Do we need a map?</div>
+            <div class="hint-box answer">✅ Правильный ответ: Do we need a map?</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="Does Tom watch films?" data-topic="present simple: questions">
+            <div class="question-text">9. Tom / watch / films → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: Tom = he → Does ... ? watch без -es.</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: Does Tom watch films?</div>
+            <div class="hint-box answer">✅ Правильный ответ: Does Tom watch films?</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="Do they work on Sunday?" data-topic="present simple: questions">
+            <div class="question-text">10. they / work / on Sunday → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: they → Do ... ?</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: Do they work on Sunday?</div>
+            <div class="hint-box answer">✅ Правильный ответ: Do they work on Sunday?</div>
+            <div class="feedback"></div>
+        </div>
+    </div>
+
+    <div class="route-divider">◆ ◆ ◆</div>
+
+    <!-- ЗАДАНИЕ 4: Краткий ответ -->
+    <div class="task-card" data-task-name="Task 4: Present Simple — Short Answers" data-icon="✅">
+        <div class="task-title">4️⃣ Task 4: Краткий ответ</div>
+        <div class="task-instruction">
+            Дай краткий ответ на вопрос. Используй подсказку в скобках: <b>(yes)</b> — согласись, <b>(no)</b> — откажись.
+            <span class="form-note">💡 Yes, I / you / we / they <b>do</b>. — No, I / you / we / they <b>don't</b>.<br>Yes, he / she / it <b>does</b>. — No, he / she / it <b>doesn't</b>.</span>
+        </div>
+        <div class="example">
+            <b>Example:</b> Do you like tea? (yes) → <b>Yes, I do.</b>
+        </div>
+
+        <div class="question-block" data-answer="Yes, I do." data-topic="present simple: short answers">
+            <div class="question-text">1. Do you like tea? <span class="badge plus">(yes)</span> → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: Yes, + местоимение + do.</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: Yes, I do.</div>
+            <div class="hint-box answer">✅ Правильный ответ: Yes, I do.</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="No, he doesn't.|No, he does not." data-topic="present simple: short answers">
+            <div class="question-text">2. Does he play the guitar? <span class="badge minus">(no)</span> → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: No, + he + doesn't.</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: No, he doesn't.</div>
+            <div class="hint-box answer">✅ Правильный ответ: No, he doesn't.</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="Yes, they do." data-topic="present simple: short answers">
+            <div class="question-text">3. Do they live here? <span class="badge plus">(yes)</span> → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: Yes, + they + do.</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: Yes, they do.</div>
+            <div class="hint-box answer">✅ Правильный ответ: Yes, they do.</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="No, she doesn't.|No, she does not." data-topic="present simple: short answers">
+            <div class="question-text">4. Does she work here? <span class="badge minus">(no)</span> → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: No, + she + doesn't.</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: No, she doesn't.</div>
+            <div class="hint-box answer">✅ Правильный ответ: No, she doesn't.</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="Yes, we do." data-topic="present simple: short answers">
+            <div class="question-text">5. Do we need milk? <span class="badge plus">(yes)</span> → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: Yes, + we + do.</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: Yes, we do.</div>
+            <div class="hint-box answer">✅ Правильный ответ: Yes, we do.</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="Yes, he does." data-topic="present simple: short answers">
+            <div class="question-text">6. Does Tom like football? <span class="badge plus">(yes)</span> → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: Tom = he → Yes, he does.</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: Yes, he does.</div>
+            <div class="hint-box answer">✅ Правильный ответ: Yes, he does.</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="No, they don't.|No, they do not." data-topic="present simple: short answers">
+            <div class="question-text">7. Do your parents speak English? <span class="badge minus">(no)</span> → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: your parents = they → No, they don't.</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: No, they don't.</div>
+            <div class="hint-box answer">✅ Правильный ответ: No, they don't.</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="No, it doesn't.|No, it does not." data-topic="present simple: short answers">
+            <div class="question-text">8. Does it rain a lot? <span class="badge minus">(no)</span> → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: No, + it + doesn't.</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: No, it doesn't.</div>
+            <div class="hint-box answer">✅ Правильный ответ: No, it doesn't.</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="Yes, she does." data-topic="present simple: short answers">
+            <div class="question-text">9. Does Anna like sushi? <span class="badge plus">(yes)</span> → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: Anna = she → Yes, she does.</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: Yes, she does.</div>
+            <div class="hint-box answer">✅ Правильный ответ: Yes, she does.</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="No, I don't.|No, I do not." data-topic="present simple: short answers">
+            <div class="question-text">10. Do you play chess? <span class="badge minus">(no)</span> → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: No, + I + don't.</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: No, I don't.</div>
+            <div class="hint-box answer">✅ Правильный ответ: No, I don't.</div>
+            <div class="feedback"></div>
+        </div>
+    </div>
+
+    <div class="route-divider">◆ ◆ ◆</div>
+
+    <!-- ЗАДАНИЕ 5: Всё вперемешку -->
+    <div class="task-card" data-task-name="Task 5: Present Simple — Mixed" data-icon="🎯">
+        <div class="task-title">5️⃣ Task 5: Всё вперемешку</div>
+        <div class="task-instruction">
+            Определи тип задания по значку и выполни его.
+            <span class="form-note">
+                <span class="badge plus">(+)</span> утверждение &nbsp;·&nbsp;
+                <span class="badge minus">(−)</span> отрицание &nbsp;·&nbsp;
+                <span class="badge q">(?)</span> вопрос &nbsp;·&nbsp;
+                <span class="badge sa">(yes / no)</span> краткий ответ
+            </span>
+        </div>
+        <div class="example">
+            <b>Example:</b> He / play / tennis <span class="badge plus">(+)</span> → <b>He plays tennis.</b>
+        </div>
+
+        <div class="question-block" data-answer="He plays tennis." data-topic="present simple: mixed">
+            <div class="question-text">1. He / play / tennis <span class="badge plus">(+)</span> → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: He + глагол с -s.</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: He plays tennis.</div>
+            <div class="hint-box answer">✅ Правильный ответ: He plays tennis.</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="They don't like fish.|They do not like fish." data-topic="present simple: mixed">
+            <div class="question-text">2. They / like / fish <span class="badge minus">(−)</span> → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: They → don't + глагол.</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: They don't like fish.</div>
+            <div class="hint-box answer">✅ Правильный ответ: They don't like fish.</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="Does she read books?" data-topic="present simple: mixed">
+            <div class="question-text">3. she / read / books <span class="badge q">(?)</span> → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: she → Does ... ? read без -s.</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: Does she read books?</div>
+            <div class="hint-box answer">✅ Правильный ответ: Does she read books?</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="Yes, he does." data-topic="present simple: mixed">
+            <div class="question-text">4. Does your brother like sport? <span class="badge sa">(yes)</span> → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: your brother = he → Yes, he does.</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: Yes, he does.</div>
+            <div class="hint-box answer">✅ Правильный ответ: Yes, he does.</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="My dad works in an office." data-topic="present simple: mixed">
+            <div class="question-text">5. My dad / work / in an office <span class="badge plus">(+)</span> → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: My dad = he → work + s.</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: My dad works in an office.</div>
+            <div class="hint-box answer">✅ Правильный ответ: My dad works in an office.</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="We don't watch TV in the morning.|We do not watch TV in the morning." data-topic="present simple: mixed">
+            <div class="question-text">6. We / watch / TV in the morning <span class="badge minus">(−)</span> → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: We → don't + глагол без -es.</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: We don't watch TV in the morning.</div>
+            <div class="hint-box answer">✅ Правильный ответ: We don't watch TV in the morning.</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="Do you play computer games?" data-topic="present simple: mixed">
+            <div class="question-text">7. you / play / computer games <span class="badge q">(?)</span> → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: you → Do ... ?</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: Do you play computer games?</div>
+            <div class="hint-box answer">✅ Правильный ответ: Do you play computer games?</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="No, they don't.|No, they do not." data-topic="present simple: mixed">
+            <div class="question-text">8. Do they go to the gym? <span class="badge sa">(no)</span> → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: No, + they + don't.</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: No, they don't.</div>
+            <div class="hint-box answer">✅ Правильный ответ: No, they don't.</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="Anna goes to school by bike." data-topic="present simple: mixed">
+            <div class="question-text">9. Anna / go / to school by bike <span class="badge plus">(+)</span> → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: Anna = she → go → goes.</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: Anna goes to school by bike.</div>
+            <div class="hint-box answer">✅ Правильный ответ: Anna goes to school by bike.</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="It doesn't snow in summer.|It does not snow in summer." data-topic="present simple: mixed">
+            <div class="question-text">10. It / snow / in summer <span class="badge minus">(−)</span> → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Check</button></div>
+            <div class="hint-box hint-1">💡 Подсказка: It → doesn't + глагол.</div>
+            <div class="hint-box hint-2">💡 Подсказка 2: It doesn't snow in summer.</div>
+            <div class="hint-box answer">✅ Правильный ответ: It doesn't snow in summer.</div>
+            <div class="feedback"></div>
+        </div>
+    </div>
+
+    <div class="route-divider">◆ ◆ ◆</div>
+
+    <!-- БЛОК РЕЗУЛЬТАТОВ -->
+    <div class="results-card" id="resultsCard">
+        <h2 class="results-title">📋 Твой отчёт</h2>
+        <p class="results-subtitle">Посмотри, как ты справился с Present Simple!</p>
+
+        <div class="results-summary">
+            <div class="summary-item">
+                <div class="number" id="correctCount">0</div>
+                <div class="label">Правильно</div>
+            </div>
+            <div class="summary-item">
+                <div class="number" id="incorrectCount">0</div>
+                <div class="label">С ошибками</div>
+            </div>
+            <div class="summary-item highlight">
+                <div class="number" id="percentScore">0%</div>
+                <div class="label">Результат</div>
+            </div>
+        </div>
+
+        <div class="report-section">
+            <h3>🔍 Задания, требующие внимания</h3>
+            <ul class="report-list" id="problemList">
+                <li class="report-empty">Пока нет данных. Пройди задания, и здесь появится разбор.</li>
+            </ul>
+        </div>
+
+        <div class="report-section">
+            <h3>📚 Темы для повторения</h3>
+            <ul class="report-list" id="topicList">
+                <li class="report-empty">Пока нет данных.</li>
+            </ul>
+        </div>
+
+        <button class="share-btn" onclick="shareResults()">📤 Поделиться с учителем</button>
+        <div class="copy-notice" id="copyNotice">✅ Отчёт скопирован! Вставь его в чат и отправь учителю.</div>
+    </div>
+
+</div>
+
+<script>
+    const attempts = new WeakMap();
+    const questionStats = new Map();
+
+    function normalizeAnswer(str) {
+        return str
+            .toLowerCase()
+            .trim()
+            .replace(/[.,!?]+$/g, '')
+            .replace(/[‘’`´']/g, '')
+            .replace(/,/g, '')
+            .replace(/\s+/g, ' ')
+            .trim();
+    }
+
+    function isAnswerCorrect(userAnswer, correctVariants) {
+        const normalizedUser = normalizeAnswer(userAnswer);
+        return correctVariants.includes(normalizedUser);
+    }
+
+    function checkAnswer(button) {
+        const questionBlock = button.closest('.question-block');
+        const input = questionBlock.querySelector('input[type="text"]');
+        const feedback = questionBlock.querySelector('.feedback');
+        const hint1 = questionBlock.querySelector('.hint-1');
+        const hint2 = questionBlock.querySelector('.hint-2');
+        const answerHint = questionBlock.querySelector('.answer');
+
+        const answerAttr = questionBlock.getAttribute('data-answer');
+        const rawVariants = answerAttr.split('|').map(v => v.trim());
+        const correctVariants = rawVariants.map(v => normalizeAnswer(v));
+
+        const topic = questionBlock.getAttribute('data-topic') || 'Общая тема';
+        const questionText = questionBlock.querySelector('.question-text').textContent.trim().substring(0, 80);
+
+        if (!attempts.has(questionBlock)) {
+            attempts.set(questionBlock, 0);
+        }
+        let currentAttempts = attempts.get(questionBlock);
+
+        input.classList.remove('correct', 'incorrect');
+        feedback.classList.remove('correct', 'incorrect');
+        feedback.style.display = 'none';
+
+        hint1.style.display = 'none';
+        hint2.style.display = 'none';
+        answerHint.style.display = 'none';
+
+        const isCorrect = isAnswerCorrect(input.value, correctVariants);
+
+        if (isCorrect) {
+            input.classList.add('correct');
+            feedback.textContent = "✅ Отлично! Правильно.";
+            feedback.classList.add('correct');
+            input.disabled = true;
+            button.disabled = true;
+            button.textContent = 'Готово';
+
+            questionStats.set(questionBlock, {
+                topic: topic,
+                question: questionText,
+                attempts: currentAttempts + 1,
+                correct: true,
+                usedHints: currentAttempts > 0,
+                userAnswer: input.value
+            });
+
+            attempts.set(questionBlock, 0);
+            updateResults();
+        } else {
+            currentAttempts++;
+            attempts.set(questionBlock, currentAttempts);
+
+            input.classList.add('incorrect');
+            feedback.textContent = "❌ Неправильно. Попробуй еще раз.";
+            feedback.classList.add('incorrect');
+
+            if (currentAttempts === 1) {
+                hint1.style.display = 'block';
+            } else if (currentAttempts === 2) {
+                hint1.style.display = 'block';
+                hint2.style.display = 'block';
+            } else if (currentAttempts >= 3) {
+                hint1.style.display = 'block';
+                hint2.style.display = 'block';
+                answerHint.style.display = 'block';
+
+                const displayAnswer = rawVariants[0];
+                input.value = displayAnswer;
+                input.classList.remove('incorrect');
+                input.classList.add('correct');
+                input.disabled = true;
+                button.disabled = true;
+                button.textContent = 'Готово';
+                feedback.textContent = "👀 Правильный ответ показан выше.";
+                feedback.classList.remove('incorrect');
+                feedback.classList.add('correct');
+
+                questionStats.set(questionBlock, {
+                    topic: topic,
+                    question: questionText,
+                    attempts: currentAttempts,
+                    correct: false,
+                    usedHints: true,
+                    userAnswer: displayAnswer
+                });
+
+                updateResults();
+            }
+        }
+    }
+
+    function updateResults() {
+        const allQuestions = document.querySelectorAll('.question-block');
+        const totalQuestions = allQuestions.length;
+        let correct = 0;
+        let incorrect = 0;
+        const problems = [];
+        const topics = {};
+
+        allQuestions.forEach(q => {
+            if (questionStats.has(q)) {
+                const stat = questionStats.get(q);
+                if (stat.correct) {
+                    correct++;
+                } else {
+                    incorrect++;
+                }
+                if (!stat.correct || stat.usedHints) {
+                    problems.push(stat);
+                }
+                if (!topics[stat.topic]) {
+                    topics[stat.topic] = { total: 0, errors: 0 };
+                }
+                topics[stat.topic].total++;
+                if (!stat.correct || stat.usedHints) {
+                    topics[stat.topic].errors++;
+                }
+            }
+        });
+
+        const percent = totalQuestions > 0 ? Math.round((correct / totalQuestions) * 100) : 0;
+
+        document.getElementById('correctCount').textContent = correct;
+        document.getElementById('incorrectCount').textContent = incorrect;
+        document.getElementById('percentScore').textContent = percent + '%';
+
+        const problemList = document.getElementById('problemList');
+        problemList.innerHTML = '';
+        if (problems.length === 0) {
+            problemList.innerHTML = '<li class="report-empty">Пока нет данных или все задания выполнены без ошибок. Отлично!</li>';
+        } else {
+            problems.forEach(p => {
+                const li = document.createElement('li');
+                li.className = p.correct ? 'hint-used' : 'problem';
+                const status = p.correct ? '⚠️ Использованы подсказки' : '❌ Не справился самостоятельно';
+                li.innerHTML = `<b>${status}</b> · ${p.topic}<br><small>${p.question}... · попыток: ${p.attempts}</small>`;
+                problemList.appendChild(li);
+            });
+        }
+
+        const topicList = document.getElementById('topicList');
+        topicList.innerHTML = '';
+        const topicEntries = Object.entries(topics).filter(([t, d]) => d.errors > 0);
+        if (topicEntries.length === 0) {
+            topicList.innerHTML = '<li class="report-empty">Все темы отработаны хорошо. Так держать!</li>';
+        } else {
+            topicEntries.forEach(([topic, data]) => {
+                const li = document.createElement('li');
+                li.className = 'problem';
+                li.innerHTML = `<b>${topic}</b> — ошибок: ${data.errors} из ${data.total}`;
+                topicList.appendChild(li);
+            });
+        }
+    }
+
+    function shareResults() {
+        const allQuestions = document.querySelectorAll('.question-block');
+        const totalQuestions = allQuestions.length;
+        let correct = 0;
+        let incorrect = 0;
+        const problems = [];
+        const topics = {};
+
+        allQuestions.forEach(q => {
+            if (questionStats.has(q)) {
+                const stat = questionStats.get(q);
+                if (stat.correct) correct++; else incorrect++;
+                if (!stat.correct || stat.usedHints) problems.push(stat);
+                if (!topics[stat.topic]) topics[stat.topic] = { total: 0, errors: 0 };
+                topics[stat.topic].total++;
+                if (!stat.correct || stat.usedHints) topics[stat.topic].errors++;
+            }
+        });
+
+        const percent = totalQuestions > 0 ? Math.round((correct / totalQuestions) * 100) : 0;
+
+        let report = '📋 PRESENT SIMPLE — ОТЧЁТ\n';
+        report += '=====================================\n\n';
+        report += `✅ Правильно: ${correct} из ${totalQuestions}\n`;
+        report += `❌ С ошибками: ${incorrect}\n`;
+        report += `📊 Результат: ${percent}%\n\n`;
+
+        report += '🔍 ЗАДАНИЯ, ТРЕБУЮЩИЕ ВНИМАНИЯ:\n';
+        report += '-------------------------------------\n';
+        if (problems.length === 0) {
+            report += 'Все задания выполнены без ошибок!\n';
+        } else {
+            problems.forEach((p, i) => {
+                const status = p.correct ? '⚠️ Использованы подсказки' : '❌ Не справился самостоятельно';
+                report += `${i + 1}. ${status}\n`;
+                report += `   Тема: ${p.topic}\n`;
+                report += `   Вопрос: ${p.question}...\n`;
+                report += `   Попыток: ${p.attempts}\n\n`;
+            });
+        }
+
+        report += '\n📚 ТЕМЫ ДЛЯ ПОВТОРЕНИЯ:\n';
+        report += '-------------------------------------\n';
+        const topicEntries = Object.entries(topics).filter(([t, d]) => d.errors > 0);
+        if (topicEntries.length === 0) {
+            report += 'Все темы отработаны хорошо.\n';
+        } else {
+            topicEntries.forEach(([topic, data]) => {
+                report += `• ${topic} — ошибок: ${data.errors} из ${data.total}\n`;
+            });
+        }
+
+        report += '\n=====================================\n';
+        report += 'Отправлено из Present Simple Trainer ⚡';
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(report).then(() => {
+                showCopyNotice();
+            }).catch(() => {
+                fallbackCopy(report);
+            });
+        } else {
+            fallbackCopy(report);
+        }
+    }
+
+    function fallbackCopy(text) {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+            document.execCommand('copy');
+            showCopyNotice();
+        } catch (e) {
+            alert('Не удалось скопировать. Пожалуйста, скопируй отчёт вручную.');
+        }
+        document.body.removeChild(textarea);
+    }
+
+    function showCopyNotice() {
+        const notice = document.getElementById('copyNotice');
+        notice.style.display = 'block';
+        setTimeout(() => {
+            notice.style.display = 'none';
+        }, 4000);
+    }
+
+    document.querySelectorAll('input[type="text"]').forEach(input => {
+        input.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                const button = this.closest('.question-block').querySelector('.check-btn');
+                if (!button.disabled) {
+                    checkAnswer(button);
+                }
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
